@@ -1,5 +1,6 @@
 package com.byonecup.mybatis.test;
 
+import com.byonecup.mybatis.pojo.Car;
 import com.byonecup.mybatis.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
@@ -37,6 +38,17 @@ public class CarMapperTest {
         // 第一个参数：sqlId，从CarMapper.xml文件中复制。
         // 第二个参数：封装数据的对象。
         int count = sqlSession.insert("insertCar", map);
+        System.out.println(count);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    @Test
+    public void testInsertCarByPOJO() {
+        SqlSession sqlSession = SqlSessionUtil.openSession();
+        // 封装数据
+        Car car = new Car(null, "2222", "比亚迪秦", 30.0, "2020-11-11", "新能源");
+        int count = sqlSession.insert("insertCar", car);
         System.out.println(count);
         sqlSession.commit();
         sqlSession.close();

@@ -44,5 +44,30 @@
         注意：#{这里写map集合的key，如果key不存在，获取的是null}
         
         一般map集合的key起名的时候要见名知意。
-        
+            map.put("carNum", "1111");
+            map.put("brand", "比亚迪汉");
+            map.put("guidePrice", 10.0);
+            map.put("produceTime", "2020-11-11");
+            map.put("carType", "电车");
+            
+            insert into t_car(id,car_num,brand,guide_price,produce_time,car_type) values(null,#{carNum},#{brand},#{guidePrice},#{produceTime},#{carType})
+            
+    Java程序中使用POJO类给SQL语句的占位符传值：
+        Car car = new Car(null, "2222", "比亚迪秦", 30.0, "2020-11-11", "新能源");
+        insert into t_car(id,car_num,brand,guide_price,produce_time,car_type) values(null,#{carNum},#{brand},#{guidePrice},#{produceTime},#{carType})
+        注意：占位符#{}，大括号里面写：POJO类的属性名
+        如果占位符里面的值对不上，会出现什么问题？
+            There is no getter for property named 'xyz' in 'class com.byonecup.mybatis.pojo.Car'
+            MyBatis去找：Car类中的getXyz()方法去了，没找到，报错了。
+            
+            如何解决？
+                可以在Car类中提供一个getXyz()方法，这样问题就解决了。
+                
+            通过这个测试，得出一个结论：
+                严格意义上来说：如果使用POJO对象传递值的话，#{}这个大括号中到底写什么？
+                    写的是get方法的方法名去掉get，然后将剩下的单词首字母变小写。
+                    例如：getUsername() --> #{username}
+                    
+            也就是说MyBatis在底层给?传值的时候，先要获取值，怎么获取呢？
+                调用了pojo对象的get方法。例如：car.getCarNum();
 ```
