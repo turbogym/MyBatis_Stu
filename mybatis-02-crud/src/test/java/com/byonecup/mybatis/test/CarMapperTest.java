@@ -96,4 +96,15 @@ public class CarMapperTest {
         });
         sqlSession.close();
     }
+
+    @Test
+    public void testNamespace() {
+        SqlSession sqlSession = SqlSessionUtil.openSession();
+        // 正确完整的写法：namespace.id
+        List<Object> lists = sqlSession.selectList("Yyyyyy.selectAll");
+        lists.forEach(list -> {
+            System.out.println(list);
+        });
+        sqlSession.close();
+    }
 }
