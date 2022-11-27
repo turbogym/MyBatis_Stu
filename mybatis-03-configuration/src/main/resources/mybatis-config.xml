@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--default表示默认使用的环境。-->
+    <!--默认环境什么意思？当你使用mybatis创建SqlSessionFactory对象的时候，没有指定环境的话，默认使用哪个环境。-->
+    <environments default="development">
+        <!--其中的一个环境。连接的数据库是MyBatis_Stu-->
+        <!--一般一个数据库会对应一个SqlSessionFactory对象。-->
+        <!--一个环境environment会对应一个SqlSessionFactory对象。-->
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/MyBatis_Stu"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+
+        <!--这是mybatis的另一个环境，也就是连接的数据库是另一个数据库mybatis。-->
+        <environment id="mybatisDB">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="CarMapper.xml"/>
+    </mappers>
+</configuration>
