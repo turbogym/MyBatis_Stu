@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -82,6 +83,17 @@ public class CarMapperTest {
         // JDBC中叫做ResultSet，接下来就是MyBatis应该从ResultSet中取出数据，封装Java对象。
         Object car = sqlSession.selectOne("selectById", 18);
         System.out.println(car);
+        sqlSession.close();
+    }
+
+    @Test
+    public void testSelectAll() {
+        SqlSession sqlSession = SqlSessionUtil.openSession();
+//        List<Object> cars = sqlSession.selectList("selectAll");
+        List<Car> cars = sqlSession.selectList("selectAll");
+        cars.forEach(car -> {
+            System.out.println(car);
+        });
         sqlSession.close();
     }
 }

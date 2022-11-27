@@ -144,3 +144,16 @@
 ```
 
 6. select（查所有的）
+
+```
+    <select id="selectAll" resultType="com.byonecup.mybatis.pojo.Car">
+        select
+            id, car_num as carNum, brand, guide_price as guidePrice, produce_time as produceTime, car_type as carType
+        from t_car
+    </select>
+    
+    List<Object> cars = sqlSession.selectList("selectAll");
+    
+    注意：resultType还是指定要封装的结果集的类型。不是指定List类型，是指定List集合中元素的类型。
+    selectList方法：MyBatis通过这个方法可以得知你需要一个List集合。它会自动给你返回一个List集合。
+```
