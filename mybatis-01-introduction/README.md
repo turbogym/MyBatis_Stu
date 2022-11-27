@@ -119,3 +119,29 @@
       以后注意了，只要你的autoCommit是true，就表示没有开启事务。
       只有你的autoCommit是false的时候，就表示开启了事务。
 ```
+
+7. 关于MyBatis集成日志组件。让我们调试起来更加方便。
+
+```
+   * MyBatis常见的集成的日志组件有哪些？
+      SLF4J（沙拉风）：沙拉风是一个日志标准，其中有一个框架叫做logback，它实现了沙拉风规范。
+      LOG4J
+      LOG4J2
+      STDOUT_LOGGING
+      ...
+      
+   * 其中STDOUT_LOGGING是标准日志，MyBatisy已经实现了这种标准日志。MyBatis框架本身已经实现了这种标准。
+     只要开启即可。在mybatis-config.xml文件中使用settings标签进行配置开启。
+     <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+     </settings>
+     这个标签在编写的时候要注意，它应该出现在environments标签之前。注意顺序。不需要记住这个顺序，因为有dtd文件进行约束，只要参考dtd约束即可。
+     
+   * 集成logback日志框架。
+      logback日志框架实现了slf4j标准。（沙拉风：日志门面。日志标准。）
+      第一步：引入logback依赖。
+      第二步：引入logback所必须的xml配置文件。
+            这个配置文件的名字必须叫做：logback.xml或者logback-test.xml，不能是其它的名字。
+            这个配置文件必须放到类的根路径下。不能是其它位置。
+            主要配置日志输出相关的级别以及日志具体的格式。
+```
