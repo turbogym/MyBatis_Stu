@@ -84,3 +84,18 @@
         注意：如果占位符只有一个，那么#{}的大括号里可以随意。
         
 ```
+
+4. update
+
+```
+    * 需求：根据id修改某条记录。
+    
+    实现：
+        <update id="updateById">
+            update t_car set car_num=#{carNum}, brand=#{brand}, guide_price=#{guidePrice}, produce_time=#{produceTime}, car_type=#{carType} where id=#{id}
+        </update>
+        
+        Car car = new Car(18l, "8888", "保时捷911", 100.00, "2020-11-11", "燃油车");
+        int count = sqlSession.update("updateById", car);
+        
+```

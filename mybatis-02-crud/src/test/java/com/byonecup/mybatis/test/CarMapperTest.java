@@ -62,4 +62,15 @@ public class CarMapperTest {
         sqlSession.commit();
         sqlSession.close();
     }
+
+    @Test
+    public void testUpdateById() {
+        SqlSession sqlSession = SqlSessionUtil.openSession();
+        // 准备数据
+        Car car = new Car(18l, "8888", "保时捷911", 100.00, "2020-11-11", "燃油车");
+        int count = sqlSession.update("updateById", car);
+        System.out.println(count);
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }
