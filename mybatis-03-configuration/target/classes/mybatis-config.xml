@@ -52,11 +52,6 @@
                         JNDI是：Java命名目录接口。Tomcat服务器实现了这个规范。
             -->
             <dataSource type="POOLED">
-                <!--
-                    连接池优点：
-                        1. 每一次获取连接都从池中拿，效率高。
-                        2. 因为每一次只能从池中拿，所以连接对象的创建数量是可控的。
-                -->
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://localhost:3306/MyBatis_Stu"/>
                 <property name="username" value="root"/>
