@@ -16,4 +16,13 @@
     <update id="updateById">
         update t_car set car_num=#{carNum}, brand=#{brand}, guide_price=#{guidePrice}, produce_time=#{produceTime}, car_type=#{carType} where id=#{id}
     </update>
+
+    <select id="selectById" resultType="com.byonecup.mybatis.pojo.Car">
+        <!--select * from t_car where id=#{id}-->
+        select
+            id, car_num as carNum, brand, guide_price as guidePrice, produce_time as produceTime, car_type as carType
+        from t_car
+        where
+            id = #{id}
+    </select>
 </mapper>

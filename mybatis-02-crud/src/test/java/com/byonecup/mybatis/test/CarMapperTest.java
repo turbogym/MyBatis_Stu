@@ -73,4 +73,15 @@ public class CarMapperTest {
         sqlSession.commit();
         sqlSession.close();
     }
+
+    @Test
+    public void testSelectById() {
+        SqlSession sqlSession = SqlSessionUtil.openSession();
+        // 执行DQL语句。查询。根据id查询。返回结果一定是一条。
+        // MyBatis底层执行了select语句之后，一定会返回一个结果集对象：ResultSet
+        // JDBC中叫做ResultSet，接下来就是MyBatis应该从ResultSet中取出数据，封装Java对象。
+        Object car = sqlSession.selectOne("selectById", 18);
+        System.out.println(car);
+        sqlSession.close();
+    }
 }

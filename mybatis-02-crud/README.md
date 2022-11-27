@@ -97,5 +97,50 @@
         
         Car car = new Car(18l, "8888", "保时捷911", 100.00, "2020-11-11", "燃油车");
         int count = sqlSession.update("updateById", car);
-        
 ```
+
+5. select（查一个，根据主键查询的话，返回的结果一定是一个。）
+
+```
+    * 需求：根据id查询。
+    
+    实现：
+        <select id="selectById" resultType="com.byonecup.mybatis.pojo.Car">
+            select * from t_car where id=#{id}
+        </select>
+        
+        Object car = sqlSession.selectOne("selectById", 18);
+        
+    需要特别注意的是：
+        select标签中resultType属性，这个属性用来告诉MyBatis查询结果集封装成什么类型的Java对象，需要告诉MyBatis。
+        resultType通常写的是：全限定类名。
+        
+    Car{id=18, carNum='null', brand='保时捷911', guidePrice=null, produceTime='null', carType='null'}
+    输出结果有点不对劲：
+        id和brand属性有值。其它属性为null。
+        
+    carNum以及其它的这几个属性没有赋上值的原因是什么？
+        select * from t_car where id=#{id}
+        执行结果：
+            +----+---------+--------------+-------------+--------------+-----------+
+            | id | car_num | brand        | guide_price | produce_time | car_type  |
+            +----+---------+--------------+-------------+--------------+-----------+
+            | 18 | 8888    | 保时捷911    |      100.00 | 2020-11-11   | 燃油车    |
+            +----+---------+--------------+-------------+--------------+-----------+
+            1 row in set (0.00 sec)
+        
+            car_num、guide_price、produce_time、car_type这是查询结果的列名。
+            这些列名和Car类中的属性名对不上。
+            Car类的属性名：
+            carNum、guidePrice、produceTime、carType
+            
+            那这个问题怎么解决呢？
+                select语句查询的时候，查询结果集的列名是可以使用as关键字起别名的。
+                select
+                    id, car_num as carNum, brand, guide_price as guidePrice, produce_time as produceTime, car_type as carType
+                from t_car
+                where id = #{id}
+                
+```
+
+6. select（查所有的）
