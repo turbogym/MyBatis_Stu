@@ -10,6 +10,23 @@
         <!--一般一个数据库会对应一个SqlSessionFactory对象。-->
         <!--一个环境environment会对应一个SqlSessionFactory对象。-->
         <environment id="development">
+            <!--
+                transactionManager标签：
+                    1. 作用：配置事务管理器。指定MyBatis具体使用什么方式去管理事务。
+                    2. type属性有两个值：
+                        第一个：JDBC：使用原生的JDBC代码来管理事务。
+                            conn.setAutoCommit(false);
+                            ...
+                            conn.commit();
+                        第二个：MANAGED：mybatis不再负责事务的管理，将事务管理交给其它的JEE（JavaEE）容器来管理。例如：Spring。
+                    3. 大小写无所谓。不区分大小写。但是不能写其它值，只能是二选一。
+                    4. 在mybatis中提供了一个事务管理器接口：Transaction
+                        该接口下有两个实现类：
+                            JdbcTransaction
+                            ManagedTransaction
+                        如果type="JDBC"，那么底层会实例化JdbcTransaction对象。
+                        如果type="managed"，那么底层会实例化ManagedTransaction对象。
+            -->
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
