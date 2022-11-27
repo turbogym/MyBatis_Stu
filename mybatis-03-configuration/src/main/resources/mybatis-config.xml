@@ -46,12 +46,14 @@
                         UNPOOLED：不使用数据库连接池技术。每一次请求过来之后，都是创建新的Connection对象。
                         POOLED：使用mybatis自己实现的数据库连接池。
                         JNDI：集成其它第三方的数据库连接池。
+
+                        JNDI是一套规范。谁实现了这套规范呢？大部分的web容器都实现了JNDI规范：
+                            例如：Tomcat、Jetty、WebLogic、WebSphere，这些服务器（容器）都实现了JNDI规范。
+                        JNDI是：Java命名目录接口。Tomcat服务器实现了这个规范。
             -->
-            <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/MyBatis_Stu"/>
-                <property name="username" value="root"/>
-                <property name="password" value="123456"/>
+            <dataSource type="JNDI">
+                <property name="initial_context" value="..."/>
+                <property name="data_source" value="..."/>
             </dataSource>
         </environment>
 
