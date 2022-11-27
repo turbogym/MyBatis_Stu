@@ -1,5 +1,6 @@
 package com.byonecup.mybatis.test;
 
+import com.byonecup.mybatis.utils.SqlSessionUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -39,5 +40,14 @@ public class CarMapperTest {
                 sqlSession.close();
             }
         }
+    }
+
+    @Test
+    public void testInsertCarByUtil() {
+        SqlSession sqlSession = SqlSessionUtil.openSession();
+        int count = sqlSession.insert("insertCar");
+        System.out.println(count);
+        sqlSession.commit();
+        sqlSession.close();
     }
 }
