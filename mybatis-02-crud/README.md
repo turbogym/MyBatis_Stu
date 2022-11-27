@@ -71,3 +71,16 @@
             也就是说MyBatis在底层给?传值的时候，先要获取值，怎么获取呢？
                 调用了pojo对象的get方法。例如：car.getCarNum();
 ```
+
+3. delete
+
+```
+    * 需求：根据id删除数据
+      实现：
+        int count = sqlSession.delete("deleteById", 17);
+        <delete id="deleteById">
+            delete from t_car where id = #{id}
+        </delete>
+        注意：如果占位符只有一个，那么#{}的大括号里可以随意。
+        
+```
