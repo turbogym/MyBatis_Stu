@@ -3,6 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+    <!--java.util.Properties类。是一个Map集合。key和value都是String类型。-->
+    <!--    <properties>-->
+    <!--        <property name="jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>-->
+    <!--        <property name="jdbc.url" value="jdbc:mysql://localhost:3306/MyBatis_Stu"/>-->
+    <!--        <property name="jdbc.username" value="root"/>-->
+    <!--        <property name="jdbc.password" value="123456"/>-->
+    <!--    </properties>-->
+
+    <properties resource="jdbc.properties"/>
+
     <!--default表示默认使用的环境。-->
     <!--默认环境什么意思？当你使用mybatis创建SqlSessionFactory对象的时候，没有指定环境的话，默认使用哪个环境。-->
     <environments default="development">
@@ -57,18 +68,20 @@
                         1. 每一次获取连接都从池中拿，效率高。
                         2. 因为每一次只能从池中拿，所以连接对象的创建数量是可控的。
                 -->
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/MyBatis_Stu"/>
-                <property name="username" value="root"/>
-                <property name="password" value="123456"/>
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
                 <!--提醒：正常使用连接池的话，池中有很多参数是需要设置的。设置好参数，可以让连接池发挥的更好。事半功倍的效果。-->
                 <!--具体连接池当中的参数如何配置呢？需要反复的根据当前业务情况进行测试。-->
                 <!--poolMaximumActiveConnections：连接池当中最多的正在使用的连接对象的数量上限。最多有多少个连接可以活动。默认值10-->
-                <property name="poolMaximumActiveConnections" value="3"/>
+                <property name="poolMaximumActiveConnections" value="10"/>
                 <!--每隔两秒打印日志，并且尝试获取对象-->
                 <property name="poolTimeToWait" value="2000"/>
                 <!--强行让某个连接空闲，超时时间的设置-->
                 <property name="poolMaximumCheckoutTime" value="10000"/>
+                <!--最多的空闲数量-->
+                <property name="poolMaximumIdleConnections" value="5"/>
             </dataSource>
         </environment>
 
