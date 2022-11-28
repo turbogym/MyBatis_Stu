@@ -52,10 +52,23 @@
                         JNDI是：Java命名目录接口。Tomcat服务器实现了这个规范。
             -->
             <dataSource type="POOLED">
+                <!--
+                    连接池优点：
+                        1. 每一次获取连接都从池中拿，效率高。
+                        2. 因为每一次只能从池中拿，所以连接对象的创建数量是可控的。
+                -->
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://localhost:3306/MyBatis_Stu"/>
                 <property name="username" value="root"/>
                 <property name="password" value="123456"/>
+                <!--提醒：正常使用连接池的话，池中有很多参数是需要设置的。设置好参数，可以让连接池发挥的更好。事半功倍的效果。-->
+                <!--具体连接池当中的参数如何配置呢？需要反复的根据当前业务情况进行测试。-->
+                <!--poolMaximumActiveConnections：连接池当中最多的正在使用的连接对象的数量上限。最多有多少个连接可以活动。默认值10-->
+                <property name="poolMaximumActiveConnections" value="3"/>
+                <!--每隔两秒打印日志，并且尝试获取对象-->
+                <property name="poolTimeToWait" value="2000"/>
+                <!--强行让某个连接空闲，超时时间的设置-->
+                <property name="poolMaximumCheckoutTime" value="10000"/>
             </dataSource>
         </environment>
 

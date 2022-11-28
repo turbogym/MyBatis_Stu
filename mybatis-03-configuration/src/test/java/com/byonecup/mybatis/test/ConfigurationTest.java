@@ -43,6 +43,7 @@ public class ConfigurationTest {
         // sqlSessionFactory对象：一个数据库一个。不要频繁创建该对象。
         SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(Resources.getResourceAsStream("mybatis-config.xml"));
         // 通过sqlSessionFactory对象可以开启多个会话。
+        /**
         SqlSession sqlSession1 = sqlSessionFactory.openSession();
         sqlSession1.insert("insertCar");
         sqlSession1.commit();
@@ -52,5 +53,11 @@ public class ConfigurationTest {
         sqlSession2.insert("insertCar");
         sqlSession2.commit();
         sqlSession2.close(); // 因为要测试连接池的效果，关闭是需要的。要不然测不出来。
+         */
+        for (int i = 0; i < 4; i++) {
+            SqlSession sqlSession = sqlSessionFactory.openSession();
+            sqlSession.insert("insertCar");
+            // 不要关闭。
+        }
     }
 }
