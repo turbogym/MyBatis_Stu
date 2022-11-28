@@ -14,6 +14,9 @@
 
     <properties resource="jdbc.properties"/>
 
+    <!--从绝对路径当中加载资源。绝对路径怎么写？file:///路径-->
+<!--    <properties url=""/>-->
+
     <!--default表示默认使用的环境。-->
     <!--默认环境什么意思？当你使用mybatis创建SqlSessionFactory对象的时候，没有指定环境的话，默认使用哪个环境。-->
     <environments default="development">
